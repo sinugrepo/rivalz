@@ -18,8 +18,8 @@ run_rivalz_in_container() {
     echo "Executing 'rivalz run' in container $container_name"
     docker exec "$container_id" rivalz run > ${container_name}_stdout.log 2> ${container_name}_stderr.log
     if [ $? -ne 0 ]; then
-      echo "rivalz run in container $container_name terminated with an error. Restarting container."
-      docker restart "$container_id"
+      echo "rivalz run in container $container_name terminated with an error. Restarting command."
+      docker exec "$container_id" rivalz run > ${container_name}_stdout.log 2> ${container_name}_stderr.log
       sleep 5 # Wait a few seconds to ensure the container is fully restarted
     else
       echo "rivalz run in container $container_name terminated normally. Exiting loop."
